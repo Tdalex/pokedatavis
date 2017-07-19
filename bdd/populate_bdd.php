@@ -8,7 +8,7 @@
 	}	
 	
 	for($i =0; $i < 300; $i++){
-		$int= mt_rand(1262055681, strtotime("now"));
+		$int= mt_rand(strtotime('2016-01-01'), strtotime("now"));
 		$date = date("Y-m-d H:i:s",$int);
 		$query = "INSERT INTO `lastseen` (`Pokemon_Id_Pokemon`, `Date`, `user_id`) VALUES ('". mt_rand(1,151)."', '".$date."', '". mt_rand(1,128)."');";
 		$result = mysqli_query($conn, $query);

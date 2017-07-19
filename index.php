@@ -26,7 +26,7 @@
 		</style>
 	</head>
 	<body>
-		<?php include ('structure/header.php'); ?>
+		<?php include ('structure/header.php');	?>
 		<div id="content">
 			<h2>Pourcentage des pokemons par nombre de type</h2>
 			<div id="nb_chart"></div>
@@ -54,7 +54,7 @@
 		<h2>Pourcentage des utilisateurs utilisant la focntionnalité 'vue dernièrement'</h2>
 		<div id="sexe_chart"></div>
 	
-		<h2>Total de pokemon trouvé par les utilisateurs</h2>
+		<h2>Liste des 15 pokemons les plus trouvé par les utilisateurs</h2>
 		<svg width="1800" id="d3_mostview" height="500"></svg>
 		
 		<h2>Nombre de pokemon trouvé les 30 derniers jours</h2>
