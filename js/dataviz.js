@@ -44,6 +44,7 @@
 			y = d3.scaleLinear().rangeRound([height, 0]);
 			
 		var c = 200;
+
 		var g = svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 		
@@ -79,17 +80,74 @@
 				});
 	}
 	
+	function generateDotChartDivD3(data, idDivToFill){		
+		// set the dimensions and margins of the graph
+		var margin = {top: 20, right: 20, bottom: 30, left: 50},
+			width = 960 - margin.left - margin.right,
+			height = 500 - margin.top - margin.bottom;
+
+		// parse the date / time
+		var parseTime = d3.timeParse("%Y-%m-%d");
+
+		// set the ranges
+		var x = d3.scaleTime().range([0, width]);
+		var y = d3.scaleLinear().range([height, 0]);
+
+		// define the line
+		var valueline = d3.line()
+			.x(function(d) { return x(d.date); })
+			.y(function(d) { return y(d.count); });
+
+		var svg = d3.select("#"+idDivToFill)
+		  .append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+		  .append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		// format the data
+		data.forEach(function(d) {
+		  d.date = parseTime(d.date);
+		});
+
+		// Scale the range of the data
+		x.domain(d3.extent(data, function(d) { return d.date; }));
+		y.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+		// Add the valueline path.
+		svg.append("path")
+		  .data([data])
+		  .attr("class", "line")
+		  .attr("d", valueline);
+		  
+		// Add the scatterplot
+		svg.selectAll("dot")
+		  .data(data)
+		.enter().append("circle")
+		  .attr("r", 5)
+		  .attr("cx", function(d) { return x(d.date); })
+		  .attr("cy", function(d) { return y(d.count); });
+
+		// Add the X Axis
+		svg.append("g")
+		  .attr("transform", "translate(0," + height + ")")
+		  .call(d3.axisBottom(x));
+
+		// Add the Y Axis
+		svg.append("g")
+		  .call(d3.axisLeft(y));
+
+	}
+	
 	getRequest("webservices/type_pokemon.php?type=1", function(data) {
-		// generateBarChart("type_1", data);
 		generateBarChartDivD3(data, "d3_barchart_1");
 	});	
 	
 	getRequest("webservices/type_pokemon.php?type=2", function(data) {
-		// generateBarChart("type_2", data);
 		generateBarChartDivD3(data, "d3_barchart_2");
 	});	
+	
 	getRequest("webservices/type_pokemon.php?type=3", function(data) {
-		// generateBarChart("type_3", data);	
 		generateBarChartDivD3(data, "d3_barchart_3");
 		$("#divA").hide();
 		$("#divC").hide();			
@@ -115,6 +173,18 @@
 	
 	getRequest("webservices/nb_type.php", function(data) {
 		generatePieChart("nb_chart", data);
+	});	
+	
+	getRequest("webservices/lastseen_sexe.php", function(data) {
+		generatePieChart("sexe_chart", data);
+	});	
+	
+	getRequest("webservices/most_view.php", function(data) {
+		generateBarChartDivD3(data, "d3_mostview");
+	});	
+	
+	getRequest("webservices/lastseen_date.php", function(data) {
+		generateDotChartDivD3(data, "d3_lastseen");
 	});	
 	
 });

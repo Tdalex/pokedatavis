@@ -17,18 +17,20 @@
 		<script type="text/javascript" src="js/renderer/jqplot.categoryAxisRenderer.js"></script>
 		
 		<script type="text/javascript" src="js/dataviz.js"></script>
+		<style> /* set the CSS */
+			.line {
+			  fill: none;
+			  stroke: steelblue;
+			  stroke-width: 2px;
+			}
+		</style>
 	</head>
 	<body>
 		<?php include ('structure/header.php'); ?>
 		<div id="content">
-			<!-- <h2>Evolution du nombre d’amis au fil du mois (en noir) et évolution de la popularité au fil du mois (en rouge)</h2>
-			<div id="listeAmis"></div>
-			<h2>Pourcentage des messages envoyés à des amis et à des non amis</h2>
-			<div id="pie_chart"></div> -->
-			
 			<h2>Pourcentage des pokemons par nombre de type</h2>
 			<div id="nb_chart"></div>
-			
+
 			<h2>Répartitions des pokemons par type</h2>
 			<form>
 				<input checked type="radio" id="radioB" name="type" value="2">Premier type<br>
@@ -37,20 +39,27 @@
 			</form>
 			<div id='divB'>
 				<h3>Premier type</h3>
-				<div id="type_2"></div>
-				<svg width="960" id="d3_barchart_2" height="500"></svg>
+				<svg width="1500" id="d3_barchart_2" height="500"></svg>
 			</div>
 			<div id='divA' >
 				<h3>Deuxieme type</h3>
-				<div id="type_1"></div>
-				<svg width="960" id="d3_barchart_1" height="500"></svg>
+				<svg width="1500" id="d3_barchart_1" height="500"></svg>
 			</div>
 			<div id='divC'>
 				<h3>Tout</h3>
-				<div id="type_3"></div>
-				<svg width="960" id="d3_barchart_3" height="500"></svg>
+				<svg width="1500" id="d3_barchart_3" height="500"></svg>
 			</div>
 		</div>
+
+		<h2>Pourcentage des utilisateurs utilisant la focntionnalité 'vue dernièrement'</h2>
+		<div id="sexe_chart"></div>
+	
+		<h2>Total de pokemon trouvé par les utilisateurs</h2>
+		<svg width="1800" id="d3_mostview" height="500"></svg>
+		
+		<h2>Nombre de pokemon trouvé les 30 derniers jours</h2>
+		<div id="d3_lastseen"></div>
+	
 		<?php include ('structure/footer.php'); ?>
 	</body>
 </html>
